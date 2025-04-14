@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2nd Portfolio</title>
+  <link rel="icon" type="image/png" href="Official JaKen Logo.png" /><
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#00ffd5',
+            secondary: '#6C4AB6',
+            accent: '#D9ACF5',
+            dark: '#0d1117'
+          },
+          fontFamily: {
+            'poppins': ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Add these new animations to your existing styles */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .skill-card, .service-card, .project-card, .testimonial-card {
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .skill-card:hover, .service-card:hover, .project-card:hover, .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 255, 213, 0.2);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Add smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Add gradient text effect */
+    .gradient-text {
+      background: linear-gradient(45deg, #00ffd5, #6C4AB6, #D9ACF5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 3s ease infinite;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Add glowing effect for dark mode */
+    .dark .glow-text {
+      text-shadow: 0 0 10px rgba(0, 255, 213, 0.5),
+                   0 0 20px rgba(0, 255, 213, 0.3),
+                   0 0 30px rgba(0, 255, 213, 0.2);
+    }
+
+    /* Section Container Styles */
+    .section-container {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* About Section Styles */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about-img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #6C4AB6;
+      box-shadow: 0 0 20px rgba(108, 74, 182, 0.3);
+    }
+
+    .about-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .highlight {
+      color: #6C4AB6;
+      font-weight: 600;
+    }
+
+    /* Skills Section Styles */
+    .skills-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .skill-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      border: 2px solid #6C4AB6;
+    }
+
+    .skill-icon {
+      font-size: 3rem;
+      color: #6C4AB6;
+      margin-bottom: 1rem;
+    }
+
+    /* Experience Section Styles */
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .experience-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      border: 2px solid #6C4AB6;
+    }
+
+    .experience-icon {
+      color: #6C4AB6;
+      margin-bottom: 1rem;
+    }
+
+    /* Services Section Styles */
+    .services-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .service-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      border: 2px solid #6C4AB6;
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      color: #6C4AB6;
+      margin-bottom: 1rem;
+    }
+
+    /* Projects Section Styles */
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 2px solid #6C4AB6;
+    }
+
+    .project-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 1.5rem;
+    }
+
+    .project-btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #6C4AB6;
+      color: white;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-btn:hover {
+      background: #D9ACF5;
+      transform: translateY(-2px);
+    }
+
+    /* Timeline Section Styles */
+    .timeline-wrapper {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .timeline-icon {
+      width: 50px;
+      height: 50px;
+      background: #6C4AB6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      border: 2px solid #6C4AB6;
+    }
+
+    /* Testimonials Section Styles */
+    .testimonials-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      border: 2px solid #6C4AB6;
+    }
+
+    .testimonial-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      border: 3px solid #6C4AB6;
+    }
+
+    .role {
+      color: #6C4AB6;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    /* Contact Section Styles */
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      border: 2px solid #6C4AB6;
+    }
+
+    .contact-icon {
+      font-size: 1.5rem;
+      color: #6C4AB6;
+    }
+
+    .contact-link {
+      color: #6C4AB6;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: #D9ACF5;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 2px solid #6C4AB6;
+    }
+
+    /* Dark Mode Styles */
+    .dark .skill-card,
+    .dark .service-card,
+    .dark .project-card,
+    .dark .testimonial-card,
+    .dark .contact-item,
+    .dark .timeline-content {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: #D9ACF5;
+    }
+
+    .dark .skill-icon,
+    .dark .service-icon,
+    .dark .contact-icon,
+    .dark .timeline-icon {
+      color: #D9ACF5;
+    }
+
+    .dark .highlight {
+      color: #D9ACF5;
+    }
+
+    .dark .project-btn {
+      background: #D9ACF5;
+    }
+
+    .dark .project-btn:hover {
+      background: #6C4AB6;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .about-img {
+        margin: 0 auto;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-icon {
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-[#0d1117] dark:text-white transition-colors duration-300">
+  <!-- TOGGLE BUTTON -->
+  <button id="darkToggle" class="fixed top-4 right-4 z-50 px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+    <i class="fas fa-sun dark:hidden"></i>
+    <i class="fas fa-moon hidden dark:block"></i>
+    <span class="dark:hidden">Dark Mode</span>
+    <span class="hidden dark:block">Light Mode</span>
+  </button>
+
+  <!-- HERO SECTION -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-gradient-to-r from-[#6C4AB6] to-[#D9ACF5] dark:from-[#0d1117] dark:to-[#1f1f2e]">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm <span class="text-white/100">Ken</span></h1>
+    <p class="text-lg md:text-xl max-w-xl text-white dark:text-gray-300">A passionate BSIT Student & Front-End Developer who loves building beautiful web experiences.</p>
+    <div class="mt-6 flex gap-4">
+      <a href="#projects" class="bg-[#9D76C1] hover:bg-[#D9ACF5] text-white px-6 py-2 rounded-xl font-semibold shadow hover:scale-105 transition">View Projects</a>
+      <a href="#contact" class="bg-white text-[#6C4AB6] hover:bg-gray-200 px-6 py-2 rounded-xl font-semibold shadow hover:scale-105 transition">Contact Me</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">About Me:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="about-content">
+      <img src="Formal Attire.jpg" alt="Ken Vista" class="about-img" />
+      <div class="about-text">
+        <p>
+          Hello! I'm <strong>Ken Humphrey V. Vista</strong> from the Philippines 🇵🇭<br><br>
+          A passionate <span class="highlight">BSIT student</span> and aspiring <span class="highlight">Front-End Developer</span> with a dream to build amazing websites and help my family. I specialize in turning simple ideas into beautiful designs and clean code.<br><br>
+          With the support of my beloved!💕, I'm on a journey to learn, grow, and take on the digital world—one pixel at a time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">My Skills:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="skills-wrapper">
+      <div class="skill-card">
+        <i class="fa-brands fa-html5 skill-icon"></i>
+        <h3 class="text-3xl font-bold glow-text mb-6">HTML & CSS</h3>
+        <p class="skill-text">Solid foundation in structuring and styling clean, responsive websites.</p>
+      </div>
+      <div class="skill-card">
+        <i class="fa-brands fa-square-js skill-icon"></i>
+        <h3 class="text-3xl font-bold glow-text mb-6">JavaScript</h3>
+        <p class="skill-text">Learning JavaScript for dynamic web interactions and creative functionality.</p>
+      </div>
+      <div class="skill-card">
+        <i class="fa-solid fa-paintbrush skill-icon"></i>
+        <h3 class="text-3xl font-bold glow-text mb-6">UI/UX Design</h3>
+        <p class="skill-text">Basic understanding of user-centered design and visual hierarchy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">Experience:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="experience-grid">
+      <div class="experience-card">
+        <i class="fa-solid fa-code fa-2x experience-icon"></i>
+        <h3 class="text-3xl font-bold glow-text mb-6">Web Design Beginner</h3>
+        <p class="experience-text">Currently learning HTML, CSS, and JavaScript with a strong focus on building clean, elegant UIs and improving every single day.</p>
+      </div>
+      <div class="experience-card">
+        <i class="fa-solid fa-id-card fa-2x experience-icon"></i>
+        <h3 class="text-3xl font-bold glow-text mb-6">Profile Card Project</h3>
+        <p class="experience-text">Created a custom "Profile Card" with unique visuals and subtle animations and personalized styling as part of my midterm activity, using only HTML and CSS.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">My Services:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="services-content">
+      <div class="service-card">
+        <i class="fas fa-paint-brush service-icon"></i>
+        <h3>Web Design</h3>
+        <p>Creating visually appealing and user-friendly website layouts with modern aesthetics.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-code service-icon"></i>
+        <h3>Front-End Development</h3>
+        <p>Developing responsive and interactive interfaces using HTML, CSS, and JavaScript.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-user-check service-icon"></i>
+        <h3>UI/UX Basics</h3>
+        <p>Designing intuitive experiences that make user interaction smooth and enjoyable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">My Projects:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="projects-container">
+      <div class="project-card">
+        <img src="KenTheCoder.jpg" alt="Project 1" class="project-img">
+        <div class="project-info">
+          <h3>Profile Card Project</h3>
+          <p>Our school "Midterm Activity" where I designed a simple, elegant profile card with animations.</p>
+          <a href="Profile Card Midterm Activity.html" class="project-btn" target="_blank">View Project</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section id="timeline" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">My Journey:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="timeline-wrapper">
+      <div class="timeline-item">
+        <div class="timeline-icon">
+          <i class="fas fa-code"></i>
+        </div>
+        <div class="timeline-content">
+          <h3>February 2025 - Started Learning</h3>
+          <p>Explored HTML & CSS basics and began practicing with small web projects.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">
+          <i class="fas fa-laptop"></i>
+        </div>
+        <div class="timeline-content">
+          <h3>April 2025 - Created My First Project</h3>
+          <p>Built a custom Profile Card with animations and a unique theme.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="timeline-content">
+          <h3>Current - Building This Portfolio</h3>
+          <p>Designing and developing a professional and animated portfolio with Janey.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">What Clients Say:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="testimonials-container">
+      <div class="testimonial-card">
+        <img src="aslin.jpg" alt="Sarah T." class="testimonial-img" />
+        <h3>Sarah T.</h3>
+        <p class="role">Content Creator</p>
+        <p class="testimonial-text">
+          "Ken was a pleasure to work with! He created a stunning, responsive portfolio for my brand and made the process so smooth. His eye for design is incredible!"
+        </p>
+      </div>
+      <div class="testimonial-card">
+        <img src="AI Girl.png" alt="Daniel R." class="testimonial-img" />
+        <h3>Daniel R.</h3>
+        <p class="role">Freelance Photographer</p>
+        <p class="testimonial-text">
+          "I'm so glad I found Ken. He turned my vision into a sleek, modern portfolio that truly represents my work. Highly recommended for creative professionals!"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="fade-in section-container">
+    <h2 class="text-3xl font-bold glow-text mb-6">Contact Me:</h2>
+    <div class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-700 rounded-full my-12 shadow-md"></div>
+    <div class="contact-container">
+      <div class="contact-item">
+        <i class="fas fa-envelope contact-icon"></i>
+        <strong><p>kenv63581@gmail.com</p></strong>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone contact-icon"></i>
+        <strong><p>09291632505</p></strong>
+      </div>
+      <div class="contact-item">
+        <i class="fab fa-facebook contact-icon"></i>
+        <p><a href="https://facebook.com/vistaken" target="_blank" class="contact-link">Ken Vista</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade-in section-container">
+    <strong><p>&copy; 2025 <span class="highlight">K. Vista</span>. All rights reserved. Made with <span class="highlight">love & code</span> by Janey & Ken.</p></strong>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+
+    // Enhanced Dark Mode Toggle
+    const toggle = document.getElementById('darkToggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check system preference and local storage
+    function initializeTheme() {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'dark' || (!storedTheme && prefersDarkScheme.matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    }
+
+    // Toggle theme with animation
+    toggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      
+      // Add transition class
+      document.body.classList.add('transition-colors', 'duration-300');
+      
+      // Remove transition class after animation
+      setTimeout(() => {
+        document.body.classList.remove('transition-colors', 'duration-300');
+      }, 300);
+    });
+
+    // Initialize theme on load
+    initializeTheme();
+
+    // Add floating animation to cards
+    const cards = document.querySelectorAll('.skill-card, .service-card, .project-card, .testimonial-card');
+    cards.forEach((card, index) => {
+      card.classList.add('float-animation');
+      card.style.animationDelay = `${index * 0.2}s`;
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html> 
